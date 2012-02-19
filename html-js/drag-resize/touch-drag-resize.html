@@ -1,0 +1,94 @@
+<html>
+  <head>
+    <title>Touch Drag and Resize</title>
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=0;" />
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+    <style type="text/css">
+      .box {
+        position: absolute;
+        left: 40px;
+        top: 70px;
+        width: 60px;
+        height: 60px;
+        min-width: 20px;
+        min-height: 20px;        
+        background-color: #ccc;
+        border: 1px solid #222;
+      }
+      .dragger {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 60px;
+        height: 60px;
+      }
+      .resizer {
+        position: absolute;
+        right: 0px;
+        bottom: 0px;
+        width: 20px;
+        height: 20px;
+        background-color: #aaa;
+      }      
+    </style>
+  </head>
+  <body>
+  	<div>Open this on a touch device and you can move/resize the box</div>
+  	<div class="box">
+    	<div class="dragger"></div>
+    	<div class="resizer"></div> 
+    </div>
+  </body>
+    <script type="text/javascript">
+$.fn.dragTouch = function() {
+	var offset = null;
+	var start = function(e) {
+		var orig = e.originalEvent;
+		var pos = $(".box").position();
+		offset = {
+			x: orig.changedTouches[0].pageX - pos.left,
+			y: orig.changedTouches[0].pageY - pos.top
+		};
+	};
+	var move = function(e) {
+		e.preventDefault();
+		var orig = e.originalEvent;
+		$(".box").css({
+			top: orig.changedTouches[0].pageY - offset.y,
+			left: orig.changedTouches[0].pageX - offset.x
+		});
+	};
+	this.bind("touchstart", start);
+	this.bind("touchmove", move);        
+};     
+
+$.fn.resizeTouch = function() {
+	var offset = null;
+	var start = function(e) {
+		var orig = e.originalEvent;
+		var pos = $(this).position();
+		offset = {
+			x: orig.changedTouches[0].pageX - pos.left,
+			y: orig.changedTouches[0].pageY - pos.top
+		};
+	};
+	var resize = function(e) {
+		e.preventDefault();
+		var orig = e.originalEvent;
+		$(".box").css({
+			height: orig.changedTouches[0].pageY - offset.y,
+			width: orig.changedTouches[0].pageX - offset.x
+		});
+		$(".dragger").css({
+			height: $(".box").height(),
+			width: $(".box").width()
+		});          
+	};
+	this.bind("touchstart", start);
+	this.bind("touchmove", resize);
+};
+      
+$(".dragger").dragTouch();
+$(".resizer").resizeTouch();
+    </script>
+</html>

@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <title>Mouse Drag and Resize</title>
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=0;" />
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/themes/base/jquery-ui.css"/>
+	<style type="text/css">
+      .box {
+        position: absolute;
+        left: 40px;
+        top: 70px;
+        width: 60px;
+        height: 60px;
+        min-width: 20px;
+        min-height: 20px;        
+        background-color: #ccc;
+        border: 1px solid #222;
+      }    
+    </style>
+  </head>
+  <body>
+  	<div>Open this on a browser and you can move/resize the box</div>
+  	<div class="box"></div>
+  </body>
+    <script type="text/javascript">
+$(".box").draggable();
+$(".box").resizable();    
+    </script>
+</html>
